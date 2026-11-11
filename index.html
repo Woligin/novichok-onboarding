@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>НОВИЧОК: первые 90 дней</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --ink: #1c2330; --muted: #5d6676; --line: #dfe3ea;
+    --accent: #2a5bd7; --accent-ink: #ffffff;
+    --high: #b3261e; --high-bg: #fde8e6; --mid: #8a5a00; --mid-bg: #fff1d6; --low: #1e6b3a; --low-bg: #e3f4ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12151b; --card: #1b2029; --ink: #e8ecf3; --muted: #9aa4b5; --line: #2c3340;
+      --accent: #7aa2ff; --accent-ink: #0d1424;
+      --high: #ff8a80; --high-bg: #3a1c1a; --mid: #ffcf70; --mid-bg: #392c10; --low: #7fd69c; --low-bg: #16301f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 20px 16px 48px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 17px; margin: 0 0 10px; }
+  .sub { color: var(--muted); margin: 0 0 16px; }
+  nav { display: flex; gap: 6px; margin: 0 0 16px; flex-wrap: wrap; }
+  nav button, .btn { border: 1px solid var(--line); background: var(--card); color: var(--ink); padding: 8px 14px; border-radius: 8px; cursor: pointer; font: inherit; }
+  nav button[aria-selected="true"], .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn.small { padding: 4px 10px; font-size: 13px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  .stat b { display: block; font-size: 26px; line-height: 1.1; }
+  .stat span { color: var(--muted); font-size: 13px; }
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+  .pill.high { background: var(--high-bg); color: var(--high); }
+  .pill.mid { background: var(--mid-bg); color: var(--mid); }
+  .pill.low, .pill.done { background: var(--low-bg); color: var(--low); }
+  .row { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--line); }
+  .row:first-child { border-top: 0; padding-top: 0; }
+  .row .who { font-weight: 600; }
+  .row ul { margin: 6px 0 0 18px; padding: 0; color: var(--muted); font-size: 14px; }
+  .row .act { margin-top: 6px; font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 13px; }
+  tr.click { cursor: pointer; }
+  tr.click:hover td { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  select, input[type=text] { font: inherit; padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--ink); }
+  .tl { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
+  .cp { border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font-size: 13px; min-width: 92px; }
+  .cp.done { background: var(--low-bg); } .cp.due { background: var(--mid-bg); } .cp.overdue { background: var(--high-bg); } .cp.future { color: var(--muted); }
+  fieldset { border: 0; padding: 0; margin: 0 0 14px; }
+  legend { font-weight: 600; margin-bottom: 6px; }
+  .scale { display: flex; gap: 6px; }
+  .scale label { border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; cursor: pointer; }
+  .scale input { position: absolute; opacity: 0; }
+  .scale input:checked + span { font-weight: 700; color: var(--accent); }
+  .scale label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .scale label:has(input:focus-visible) { outline: 2px solid var(--accent); }
+  .note { color: var(--muted); font-size: 13px; }
+  .msg { border-left: 3px solid var(--accent); padding: 6px 10px; margin-top: 8px; background: color-mix(in srgb, var(--accent) 6%, transparent); font-size: 14px; }
+  [hidden] { display: none !important; }
+  @media (max-width: 640px) { .stats { grid-template-columns: repeat(2, 1fr); } .hide-sm { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>НОВИЧОК: первые 90 дней</h1>
+  <p class="sub">Короткие опросы новичков на 3, 7, 14, 30, 60 и 90-й день. HR видит, кому написать сегодня и почему. Данные вымышленные.</p>
+  <nav id="tabs" role="tablist"></nav>
+  <main id="view"></main>
+</div>
+<script src="logic.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
